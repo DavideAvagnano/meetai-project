@@ -19,7 +19,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 const formSchema = z
   .object({
     name: z.string().min(1, { message: 'Name is required' }),
-    email: z.string().email(),
+    email: z.email(),
     password: z.string().min(1, { message: 'Password is required' }),
     confirmPassword: z.string().min(1, { message: 'Password is required' }),
   })
