@@ -2,8 +2,8 @@ import { getServerAuthSession, ServerSession } from '@/lib/auth-server';
 import { initTRPC, TRPCError } from '@trpc/server';
 
 export const createTRPCContext = async (headers: Headers) => {
-  const session = await getServerAuthSession(headers);
-  return { headers, session };
+  const auth = await getServerAuthSession(headers);
+  return { headers, auth };
 };
 
 export type TRPCContext = Awaited<ReturnType<typeof createTRPCContext>>;
@@ -17,14 +17,14 @@ export const createCallerFactory = t.createCallerFactory;
 export const baseProcedure = t.procedure;
 
 export const protectedProcedure = baseProcedure.use(({ ctx, next }) => {
-  if (!ctx.session?.user) {
+  if (!ctx.auth?.user) {
     throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Unauthorized' });
   }
 
   return next({
     ctx: {
       ...ctx,
-      session: ctx.session as NonNullable<typeof ctx.session>,
+      auth: ctx.auth as NonNullable<typeof ctx.auth>,
     },
   });
 });
