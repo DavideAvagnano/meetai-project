@@ -15,11 +15,15 @@ export const agentsRouter = createTRPCRouter({
     const [existingAgent] = await db
       .select({
         ...getTableColumns(agents),
-        meetingCount: sql<number>`5`,
-        // TODO: change to actual meeting count
+        meetingCount: sql<number>`5`, // TODO: change to actual meeting count
+        // meetingCount: db.$count(meetings, eq(agents.id, meetings.agentId)),
       })
       .from(agents)
-      .where(eq(agents.id, input.id));
+      .where(and(eq(agents.id, input.id), eq(agents.userId, ctx.auth.user.id)));
+
+    if (!existingAgent) {
+      throw new TRPCError({ code: 'NOT_FOUND', message: 'Agent not found' });
+    }
 
     return existingAgent;
   }),
