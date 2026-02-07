@@ -4,7 +4,7 @@ import { getQueryClient, trpc } from '@/trpc/server';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { AgentsView, AgentsViewError, AgentsViewLoading } from '@/modules/agents/ui/view/agents-view';
+import { AgentsView, AgentsViewError, AgentsViewLoading } from '@/modules/agents/ui/views/agents-view';
 import { AgentsListHeader } from '@/modules/agents/ui/components/agents-list-header';
 import { getServerAuthSession } from '@/lib/auth-server';
 import { headers } from 'next/headers';

@@ -4,7 +4,7 @@ import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 
 import { getQueryClient, trpc } from '@/trpc/server';
 
-import { AgentIdView, AgentIdViewError, AgentIdViewLoading } from '@/modules/agents/ui/view/agent-id-view';
+import { AgentIdView, AgentIdViewError, AgentIdViewLoading } from '@/modules/agents/ui/views/agent-id-view';
 
 interface Props {
   params: Promise<{ agentId: string }>;
