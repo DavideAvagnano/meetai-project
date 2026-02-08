@@ -17,20 +17,20 @@ import {
 } from '@/components/ui/breadcrumb';
 
 interface Props {
-  agentId: string;
-  agentName: string;
+  meetingId: string;
+  meetingName: string;
   onEdit: () => void;
   onRemove: () => void;
 }
 
-export const AgentIdViewHeader = ({ agentId, agentName, onEdit, onRemove }: Props) => {
+export const MeetingIdViewHeader = ({ meetingId, meetingName, onEdit, onRemove }: Props) => {
   return (
     <div className="flex items-center justify-between">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild className="font-medium text-xl">
-              <Link href="/agents">My Agents</Link>
+              <Link href="/meetings">My Meetings</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator className="text-foreground text-xl font-medium [&>svg]:size-4">
@@ -38,7 +38,7 @@ export const AgentIdViewHeader = ({ agentId, agentName, onEdit, onRemove }: Prop
           </BreadcrumbSeparator>
           <BreadcrumbItem>
             <BreadcrumbLink asChild className="font-medium text-xl text-foreground">
-              <Link href={`/agents/${agentId}`}>{agentName}</Link>
+              <Link href={`/meetings/${meetingId}`}>{meetingName}</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
