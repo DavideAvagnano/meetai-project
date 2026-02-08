@@ -5,6 +5,9 @@ import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import { getQueryClient, trpc } from '@/trpc/server';
 
 import { AgentIdView, AgentIdViewError, AgentIdViewLoading } from '@/modules/agents/ui/views/agent-id-view';
+import { getServerAuthSession } from '@/lib/auth-server';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 interface Props {
   params: Promise<{ agentId: string }>;
@@ -12,6 +15,12 @@ interface Props {
 
 const Page = async ({ params }: Props) => {
   const { agentId } = await params;
+
+  const session = await getServerAuthSession(await headers());
+
+  if (!session) {
+    redirect('/sign-in');
+  }
 
   const queryClient = getQueryClient();
   void queryClient.prefetchQuery(trpc.agents.getOne.queryOptions({ id: agentId }));
