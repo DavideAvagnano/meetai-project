@@ -43,3 +43,6 @@ next-env.d.ts
 
 # private
 docs/
+
+# database
+db/dump
