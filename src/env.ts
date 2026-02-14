@@ -9,15 +9,8 @@ export const env = createEnv({
   server: {
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
 
-    // Database - two mode
-    // 1. DB_URL for production (Neon)
-    DB_URL: z.url().optional(),
-    // 2. DB_HOST, DB_USER, etc. for development (Docker)
-    DB_HOST: z.string().optional(),
-    DB_PORT: z.coerce.number().optional(),
-    DB_USER: z.string().optional(),
-    DB_PASSWORD: z.string().optional(),
-    DB_DATABASE: z.string().optional(),
+    // Database
+    DATABASE_URL: z.string().min(1),
 
     // Better Auth
     BETTER_AUTH_SECRET: z.string().min(32, 'Secret must be at least 32 characters'),
@@ -47,12 +40,7 @@ export const env = createEnv({
   runtimeEnv: {
     // Server
     NODE_ENV: process.env.NODE_ENV,
-    DB_URL: process.env.DB_URL,
-    DB_HOST: process.env.DB_HOST,
-    DB_PORT: process.env.DB_PORT,
-    DB_USER: process.env.DB_USER,
-    DB_PASSWORD: process.env.DB_PASSWORD,
-    DB_DATABASE: process.env.DB_DATABASE,
+    DATABASE_URL: process.env.DATABASE_URL,
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
     BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,

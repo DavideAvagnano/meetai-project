@@ -1,26 +1,27 @@
-import { drizzle } from 'drizzle-orm/neon-http';
+import { drizzle as drizzleHttp } from 'drizzle-orm/neon-http';
 import { drizzle as drizzlePg } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import { env } from '@/env';
 
-const isDev = env.NODE_ENV === 'development';
+const isDev = env.NODE_ENV !== 'production';
 
-const devPoolConfig = {
-  host: env.DB_HOST,
-  user: env.DB_USER,
-  password: env.DB_PASSWORD,
-  database: env.DB_DATABASE,
-  port: env.DB_PORT,
-  ssl: false,
-} as const;
+declare global {
+  // eslint-disable-next-line no-var
+  var __pgPool: Pool | undefined;
+}
 
-const devPool = new Pool(devPoolConfig);
+const pool =
+  global.__pgPool ??
+  new Pool({
+    connectionString: env.DATABASE_URL,
+  });
 
-const dbDev = drizzlePg(devPool);
-const dbProd = drizzle(env.DB_URL!);
+if (isDev) global.__pgPool = pool;
+
+const dbDev = drizzlePg(pool);
+const dbProd = drizzleHttp(env.DATABASE_URL);
 
 export const db = isDev ? dbDev : dbProd;
-
 export type Db = typeof db;
 
 /**

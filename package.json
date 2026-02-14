@@ -12,7 +12,10 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:drop": "drizzle-kit drop",
-    "db:pull": "drizzle-kit pull"
+    "db:pull": "drizzle-kit pull",
+    "db:migrate:prod": "dotenv -e .env.production -- drizzle-kit migrate",
+    "build:prod": "dotenv -e .env.production -- next build",
+    "start:prod": "dotenv -e .env.production -- next start"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.4",
@@ -89,6 +92,7 @@
     "@types/pg": "^8.16.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.8",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",

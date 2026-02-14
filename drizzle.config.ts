@@ -4,16 +4,12 @@ import { env } from './src/env';
 
 const folderPath = './src/db';
 
-function buildLocalConnectionString() {
-  return `postgresql://${env.DB_USER}:${env.DB_PASSWORD}@${env.DB_HOST}:${env.DB_PORT}/${env.DB_DATABASE}`;
-}
-
 export default defineConfig({
   out: `${folderPath}/migrations`,
   schema: `${folderPath}/schema.ts`,
   dialect: 'postgresql',
   dbCredentials: {
-    url: env.NODE_ENV === 'development' ? buildLocalConnectionString() : env.DB_URL!,
+    url: env.DATABASE_URL,
   },
 });
 
@@ -45,12 +41,15 @@ export default defineConfig({
  * Syncing with Neon (Production)
  * ----------------------------
  * To synchronize **only the schema** on Neon without touching the data:
- *
- *      NODE_ENV=production bun run db:migrate
+ *      bunx dotenv -e .env.production -- bun run db:migrate
  *
  * Drizzle will apply only migrations **not yet recorded** in the
  * `__drizzle_migrations` table on Neon, ensuring the schema is up-to-date
  * without affecting existing data.
+ *
+ * Test the production database locally (optional):
+ *      bunx dotenv -e .env.production -- bun run build
+ *      bunx dotenv -e .env.production -- bun run start
  *
  * ================================
  * Notes
