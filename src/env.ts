@@ -23,6 +23,9 @@ export const env = createEnv({
     // OAuth - Google
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
+
+    // Stream Video
+    STREAM_VIDEO_SECRET_KEY: z.string().min(1),
   },
 
   /**
@@ -31,6 +34,7 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_APP_URL: z.url(),
+    NEXT_PUBLIC_STREAM_VIDEO_API_KEY: z.string().min(1),
   },
 
   /**
@@ -47,9 +51,11 @@ export const env = createEnv({
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    STREAM_VIDEO_SECRET_KEY: process.env.STREAM_VIDEO_SECRET_KEY,
 
     // Client
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    NEXT_PUBLIC_STREAM_VIDEO_API_KEY: process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY,
   },
 
   /**
